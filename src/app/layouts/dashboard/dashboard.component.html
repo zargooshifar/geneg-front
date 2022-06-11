@@ -1,0 +1,11 @@
+<nb-layout>
+  <nb-layout-header >
+    <app-header style="display: contents"></app-header>
+  </nb-layout-header>
+  <nb-layout-column class="main-content">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+  <nb-sidebar fixed right state="collapsed" class="menu-sidebar" responsive>
+    <nb-menu [items]="menuItems"></nb-menu>
+  </nb-sidebar>
+</nb-layout>

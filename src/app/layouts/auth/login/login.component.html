@@ -1,0 +1,320 @@
+<h1 id="title" class="title">ورود</h1>
+<p class="sub-title">خوش آمدید</p>
+
+<nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+  <p class="alert-title"><b>خطایی رخ داد!</b></p>
+  <ul class="alert-message-list">
+    <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+  </ul>
+</nb-alert>
+
+<nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
+  <p class="alert-title"><b>ورود موفق!</b></p>
+  <ul class="alert-message-list">
+    <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+  </ul>
+</nb-alert>
+
+<form (ngSubmit)="checkUserName()" *ngIf="state === 0" #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <label class="label" for="input-phone">شماره موبایل:</label>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.username"
+           #phone="ngModel"
+           name="phonenumber"
+           id="input-phone"
+           pattern="[0-9]{11}"
+           placeholder="شماره تماس"
+           fieldSize="large"
+           type="tel"
+           autofocus
+           [status]="phone.dirty ? (phone.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.email.required')"
+           [attr.aria-invalid]="phone.invalid && phone.touched ? true : null">
+    <ng-container *ngIf="phone.invalid && phone.touched">
+      <p class="caption status-danger" *ngIf="phone.errors?.required">
+        شماره تماس وارد نشده است!
+      </p>
+      <p class="caption status-danger" *ngIf="phone.errors?.pattern">
+        شماره تماس معتبر نیست!
+      </p>
+    </ng-container>
+  </div>
+
+
+
+  <button class="btn btn-block btn-primary btn-lg"
+          [disabled]="submitted || !form.valid"
+          [class.btn-pulse]="submitted">
+    ادامه
+  </button>
+</form>
+
+
+<form (ngSubmit)="login()" *ngIf="state === 1" #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-password">کلمه عبور:</label>
+      <a class="forgot-password caption-2" (click)="forgetpin()">کلمه عبور خود را فراموش کرده اید؟</a>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.password"
+           #password="ngModel"
+           name="password"
+           type="password"
+           id="input-password"
+           placeholder="کلمه عبور"
+           fieldSize="large"
+           [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [minlength]="getConfigValue('forms.validation.password.minLength')"
+           [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+           [attr.aria-invalid]="password.invalid && password.touched ? true : null">
+    <ng-container *ngIf="password.invalid && password.touched ">
+      <p class="caption status-danger" *ngIf="password.errors?.required">
+        کلمه عبور وارد نشده است!
+      </p>
+      <p class="caption status-danger" *ngIf="password.errors?.minlength || password.errors?.maxlength">
+         کلمه عبور باید بین
+         {{ getConfigValue('forms.validation.password.minLength') }}
+         تا
+        {{ getConfigValue('forms.validation.password.maxLength') }}
+        کاراکتر باشد.
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="form-control-group accept-group">
+    <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">مرا بخاطر بسپار</nb-checkbox>
+  </div>
+
+  <button class="btn btn-block btn-primary btn-lg"
+          [disabled]="submitted || !form.valid"
+          [class.btn-pulse]="submitted">
+    ورود
+  </button>
+</form>
+
+<form (ngSubmit)="register()" *ngIf="state === 2" #form="ngForm" aria-labelledby="title">
+
+
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-firstname">نام:</label>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.first_name"
+           #firstname="ngModel"
+           name="firstname"
+           type="text"
+           id="input-firstname"
+           placeholder="نام"
+           fieldSize="large"
+           [status]="firstname.dirty ? (firstname.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [attr.aria-invalid]="firstname.invalid && firstname.touched ? true : null">
+    <ng-container *ngIf="firstname.invalid && firstname.touched ">
+      <p class="caption status-danger" *ngIf="firstname.errors?.required">
+        نام وارد نشده است!
+      </p>
+    </ng-container>
+  </div>
+    <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-lastname">نام خانوادگی:</label>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.last_name"
+           #lastname="ngModel"
+           name="lastname"
+           type="text"
+           id="input-lastname"
+           placeholder="نام خانوادگی"
+           fieldSize="large"
+           [status]="lastname.dirty ? (lastname.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [attr.aria-invalid]="lastname.invalid && lastname.touched ? true : null">
+    <ng-container *ngIf="lastname.invalid && lastname.touched ">
+      <p class="caption status-danger" *ngIf="lastname.errors?.required">
+        نام خانوادگی وارد نشده است!
+      </p>
+    </ng-container>
+  </div>
+
+   <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-password1">کلمه عبور:</label>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.password"
+           #password1="ngModel"
+           name="password1"
+           type="password"
+           id="input-password1"
+           placeholder="کلمه عبور"
+           fieldSize="large"
+           [status]="password1.dirty ? (password1.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [minlength]="getConfigValue('forms.validation.password.minLength')"
+           [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+           [attr.aria-invalid]="password1.invalid && password1.touched ? true : null">
+    <ng-container *ngIf="password1.invalid && password1.touched ">
+      <p class="caption status-danger" *ngIf="password1.errors?.required">
+        کلمه عبور وارد نشده است!
+      </p>
+      <p class="caption status-danger" *ngIf="password1.errors?.minlength || password1.errors?.maxlength">
+         کلمه عبور باید بین
+         {{ getConfigValue('forms.validation.password.minLength') }}
+         تا
+        {{ getConfigValue('forms.validation.password.maxLength') }}
+        کاراکتر باشد.
+      </p>
+    </ng-container>
+  </div>
+
+   <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-password2">تکرار کلمه عبور:</label>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.password2"
+           #password2="ngModel"
+           name="password2"
+           type="password"
+           id="input-password2"
+           placeholder="تکرار کلمه عبور"
+           fieldSize="large"
+           [status]="password2.dirty ? (password2.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [minlength]="getConfigValue('forms.validation.password.minLength')"
+           [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+           [attr.aria-invalid]="password2.invalid && password2.touched ? true : null">
+    <ng-container *ngIf="password2.invalid && password2.touched ">
+
+      <p class="caption status-danger" *ngIf="password2.value !== password1.value">
+        کلمه عبور و تکرار کلمه عبور یکسان نیست.
+      </p>
+    </ng-container>
+  </div>
+
+
+
+
+  <button class="btn btn-block btn-primary btn-lg"
+          [disabled]="submitted || !form.valid"
+          [class.btn-pulse]="submitted">
+    ثبت نام
+  </button>
+</form>
+
+<form (ngSubmit)="resetPassword()" *ngIf="state === 3" #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-rpassword1">کلمه عبور:</label>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.password"
+           #rpassword1="ngModel"
+           name="rpassword1"
+           type="password"
+           id="input-rpassword1"
+           placeholder="کلمه عبور"
+           fieldSize="large"
+           [status]="rpassword1.dirty ? (rpassword1.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [minlength]="getConfigValue('forms.validation.password.minLength')"
+           [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+           [attr.aria-invalid]="rpassword1.invalid && rpassword1.touched ? true : null">
+    <ng-container *ngIf="rpassword1.invalid && rpassword1.touched ">
+      <p class="caption status-danger" *ngIf="rpassword1.errors?.required">
+        کلمه عبور وارد نشده است!
+      </p>
+      <p class="caption status-danger" *ngIf="rpassword1.errors?.minlength || rpassword1.errors?.maxlength">
+         کلمه عبور باید بین
+         {{ getConfigValue('forms.validation.password.minLength') }}
+         تا
+        {{ getConfigValue('forms.validation.password.maxLength') }}
+        کاراکتر باشد.
+      </p>
+    </ng-container>
+  </div>
+
+   <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-rpassword2">تکرار کلمه عبور:</label>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.password2"
+           #rpassword2="ngModel"
+           name="rpassword2"
+           type="password"
+           id="input-rpassword2"
+           placeholder="تکرار کلمه عبور"
+           fieldSize="large"
+           [status]="rpassword2.dirty ? (rpassword2.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [minlength]="getConfigValue('forms.validation.password.minLength')"
+           [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+           [attr.aria-invalid]="rpassword2.invalid && rpassword2.touched ? true : null">
+    <ng-container *ngIf="rpassword2.invalid && rpassword2.touched ">
+
+      <p class="caption status-danger" *ngIf="rpassword2.value !== rpassword1.value">
+        کلمه عبور و تکرار کلمه عبور یکسان نیست.
+      </p>
+    </ng-container>
+  </div>
+  <button class="btn btn-block btn-primary btn-lg"
+          [disabled]="submitted || !form.valid"
+          [class.btn-pulse]="submitted">
+    ورود
+  </button>
+</form>
+
+
+<form (ngSubmit)="verify()" *ngIf="state === 5 || state === 6" #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-pin">کد تایید ارسال شده را وارد کنید:</label>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="user.pin"
+           #pin="ngModel"
+           name="pin"
+           type="text"
+           id="input-pin"
+           placeholder="کد تایید"
+           pattern="[0-9]{5}"
+           fieldSize="large"
+           [status]="pin.dirty ? (pin.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [attr.aria-invalid]="pin.invalid && pin.touched ? true : null">
+    <ng-container *ngIf="pin.invalid && pin.touched ">
+      <p class="caption status-danger" *ngIf="pin.errors?.required">
+        کد تایید وارد نشده است!
+      </p>
+      <p class="caption status-danger" *ngIf="pin.errors?.pattern">
+        کد تایید معتبر نیست!
+      </p>
+    </ng-container>
+  </div>
+
+  <button class="btn btn-block btn-primary btn-lg"
+          [disabled]="submitted || !form.valid"
+          [class.btn-pulse]="submitted">
+    ادامه
+  </button>
+</form>
+

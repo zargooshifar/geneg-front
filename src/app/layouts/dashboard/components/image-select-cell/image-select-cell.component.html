@@ -1,0 +1,13 @@
+<input nbInput fullWidth
+       [ngClass]="inputClass"
+      class="form-control"
+       type="file"
+       (change)="onChange($event)"
+
+      [name]="cell.getId()"
+      [placeholder]="cell.getTitle()"
+      [disabled]="!cell.isEditable()"
+      (click)="onClick.emit($event)"
+      (keydown.enter)="onEdited.emit($event)"
+      (keydown.esc)="onStopEditing.emit()">
+

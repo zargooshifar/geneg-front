@@ -1,0 +1,14 @@
+//::ng-deep .ng2-smart-actions {
+//  display: inline-flex;
+//  vertical-align: bottom!important;
+//  //height: unset!important;
+//}
+
+::ng-deep ng2-st-tbody-custom  {
+    display: flex;
+    height: 100%;
+}
+
+//::ng-deep ng2-st-tbody-edit-delete {
+//  display: none;
+//}

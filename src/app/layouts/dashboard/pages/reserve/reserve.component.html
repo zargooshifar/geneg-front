@@ -1,0 +1,33 @@
+<nb-card>
+  <nb-card-header>
+    رزرو نهار
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="row">
+      <nb-card class="col-md-3 col-12 m-2 p-0"  *ngFor="let item of lunches ; let i = index">
+        <nb-card-header style="padding: 0">
+          <p class="date-text">{{dateService.convertToJalali(item.food.expire, 'EEEE dd MMMM')}}</p>
+          <img style="width: 100%" src="{{BACKEND + item.food.image.path}}">
+        </nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-6">{{item.food.name}}</div>
+            <div class="col-6 d-flex" style="justify-content: left" >{{item.food.price | NumbersComma}} تومان</div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer >
+          <div class="row">
+            <div class="col-6">
+            </div>
+            <div class="col-6 d-flex align-items-center" style="justify-content: left">
+              <button class="btn btn-danger mx-1" style="width: 35px; height: 35px" (click)="unreserve(item.food.id, i)">-</button>
+              <div class="mx-2">{{item.count}}</div>
+              <button class="btn btn-success  mx-1"  style="width: 35px; height: 35px" (click)="reserve(item.food.id, i)">+</button>
+            </div>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </nb-card-body>
+</nb-card>

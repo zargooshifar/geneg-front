@@ -1,0 +1,18 @@
+<nb-layout>
+  <nb-layout-header>
+    <app-theme-changer></app-theme-changer>
+  </nb-layout-header>
+  <nb-layout-column>
+    <input dir="ltr" nbInput fullWidth [nbDatepicker]="datepicker" [(ngModel)]="date" (ngModelChange)="dateChanged($event)">
+    <nb-datepicker #datepicker format="yyyy-MM-dd" ></nb-datepicker>
+
+<!--     <input dir="ltr" nbInput placeholder="Pick Date" [nbDatepicker]="dateTimePicker">-->
+<!--        <nb-date-timepicker-->
+<!--          #dateTimePicker-->
+<!--          singleColumn-->
+<!--          currentTimeButtonText="الان"-->
+<!--          applyButtonText="ست کردن"-->
+<!--          [step]="30"></nb-date-timepicker>-->
+
+  </nb-layout-column>
+</nb-layout>

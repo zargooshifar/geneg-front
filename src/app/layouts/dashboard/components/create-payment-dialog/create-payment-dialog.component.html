@@ -1,0 +1,18 @@
+<nb-card>
+  <nb-card-header>
+    ثبت پرداختی برای  {{item.first_name}} {{item.last_name}}
+
+  </nb-card-header>
+  <nb-card-body>
+      <div class="form-group row">
+      <label for="inputamount" class="label col-sm-3 col-form-label">مبلغ(تومان):</label>
+      <div class="col-sm-9">
+        <input type="number" nbinput="" fullwidth="" id="inputamount" placeholder="مبلغ"
+               [(ngModel)]="amount"
+               class="input-full-width size-medium status-basic shape-rectangle nb-transition"></div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="btn btn-primary float-left" (click)="submit()">ادامه</button>
+  </nb-card-footer>
+</nb-card>

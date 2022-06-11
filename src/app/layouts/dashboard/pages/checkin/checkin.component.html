@@ -1,0 +1,12 @@
+<nb-card>
+  <nb-card-header>
+    ورود و خروج
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings"
+                     [source]="dataSource"
+                      (deleteConfirm)="onDeleteConfirm($event)"
+                      [contextMenuItems]="menuItems">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

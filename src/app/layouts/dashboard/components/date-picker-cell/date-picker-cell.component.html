@@ -1,0 +1,12 @@
+<input nbInput fullWidth
+       [nbDatepicker]="datepicker"
+      [ngClass]="inputClass"
+      class="form-control"
+      [(ngModel)]="cell.newValue"
+      [name]="cell.getId()"
+      [placeholder]="cell.getTitle()"
+      [disabled]="!cell.isEditable()"
+      (click)="onClick.emit($event)"
+      (keydown.enter)="onEdited.emit($event)"
+      (keydown.esc)="onStopEditing.emit()">
+<nb-date-timepicker #datepicker format="yyyy-MM-dd" ></nb-date-timepicker>

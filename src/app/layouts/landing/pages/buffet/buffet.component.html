@@ -1,0 +1,22 @@
+<nb-card style="height: 100%">
+  <nb-card-header style="height: 100%" class="d-flex justify-content-center align-items-center">
+    <webcam  (imageCapture)="handleImage($event)"
+             class="d-flex justify-content-center align-items-center"
+            *ngIf="showWebcam"
+            [imageQuality]="1"
+            [trigger]="triggerObservable"
+     (initError)="handleInitError($event)"
+    style="width: 100%"></webcam>
+    <button class="btn btn-outline-secondary p-2 mx-2"
+            style="width: 200px; height: 200px; border-radius: 100%; position: absolute"
+            (click)="triggerSnapshot();" [disabled]="capturing || processing">{{start_text}}</button>
+
+  </nb-card-header>
+  <nb-card-footer>
+    <button class="btn btn-lg btn-info p-3" *ngFor="let user of users"
+
+    (click)="continue(user.id, user.first_name + ' ' + user.last_name)">
+        {{user.first_name}} {{user.last_name}}
+    </button>
+  </nb-card-footer>
+</nb-card>

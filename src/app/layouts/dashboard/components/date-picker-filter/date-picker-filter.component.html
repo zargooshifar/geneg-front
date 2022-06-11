@@ -1,0 +1,8 @@
+ <input
+   style="color: darkred"
+   [ngClass]="inputClass"
+   [formControl]="inputControl"
+   [nbDatepicker]="datepicker"
+   class="form-control"
+   placeholder="{{ column.title }}"/>
+<nb-datepicker [(date)]="date" #datepicker format="yyyy-MM-dd HH:mm"></nb-datepicker>

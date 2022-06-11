@@ -1,0 +1,8 @@
+<!--<nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">-->
+<!--    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>-->
+<!--</nb-select>-->
+<div class="d-flex align-items-center">
+<nb-toggle [checked]="nightTheme" (checkedChange)="changeTheme2($event)"></nb-toggle>
+<nb-icon icon="fa-moon" class="mx-1" style="font-size: 1.7rem"></nb-icon>
+</div>
+

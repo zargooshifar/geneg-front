@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+// themes - our custom or/and out of the box themes
+@import 'themes';
+
+// framework component themes (styles tied to theme variables)
+@import '../../../../node_modules/@nebular/theme/styles/globals';
+@import '../../../../node_modules/@nebular/auth/styles/globals';
+
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
+@import '../../../../node_modules/bootstrap/scss/grid';
+
+// loading progress bar theme
+@import 'pace.theme';
+
+@import 'layout';
+@import 'overrides';
+
+// install the framework and custom global styles
+@include nb-install() {
+
+  // framework global styles
+  @include nb-theme-global();
+  @include nb-auth-global();
+
+  @include ngx-layout();
+  // loading progress bar
+  @include ngx-pace-theme();
+
+  @include nb-overrides();
+};
+
+
+
+$product-colors: (
+  talentx: #0490ab,
+  talentxplus: #6553a3,
+  disorders: #dc157c
+);
+
+@each $product, $color in $product-colors {
+
+  .back-effect--#{$product} {
+    //padding: 2em;
+    margin: 3em 0 1em;
+    position: relative;
+
+    &:before {
+      top: -3em;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      content: "";
+      width: 15em;
+      opacity: 0.2;
+      height: 14em;
+      margin: auto;
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      background-color: $color;
+      animation: status-motion 8s ease-in-out infinite both alternate, status-spin 30s linear infinite reverse;
+    }
+
+    &:after {
+      top: -3em;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      content: "";
+      width: 15em;
+      opacity: 0.2;
+      height: 14em;
+      margin: auto;
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid darken($color, 20%);
+      animation: status-motion 10s ease-in-out infinite both alternate, status-spin 35s linear infinite;
+    }
+  }
+
+  .back-effect--#{$product} > img {
+    z-index: 1 !important;
+    position: relative;
+    width: 13em !important;
+  }
+
+}
+
+
+
+@keyframes status-motion {
+    0% {
+        border-radius: 30% 60% 60% 40% / 60% 30% 70% 30%;
+    }
+
+    100% {
+        border-radius: 40% 70%;
+    }
+}
+
+@keyframes status-spin {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; min-width: unset!important;}

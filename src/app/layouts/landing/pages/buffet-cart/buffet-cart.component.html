@@ -1,0 +1,102 @@
+<nb-card *ngIf="state == 0" style="height: 100vh">
+  <nb-card-header class="d-inline-flex " style="align-items: baseline; justify-content: left">
+    <p *ngIf="connected" style="color: green">اتصال با سرور برقرار است.</p>
+    <btn *ngIf="!connected" class="btn btn-secondary mx-2 d-flex" (click)="reload()"><i class="fa fa-refresh"></i></btn>
+    <p *ngIf="!connected" style="color: darkred">اتصال با سرور قطع است.</p>
+  </nb-card-header>
+  <nb-card-body  class="d-flex justify-content-center align-items-center">
+    <h1>لطفا تگ خود را بزنید</h1>
+  </nb-card-body>
+  <nb-card-footer>{{error}}</nb-card-footer>
+</nb-card>
+<nb-card *ngIf="state == 2" style="height: 100vh">
+  <nb-card-body class="d-flex justify-content-center align-items-center flex-column">
+    <h4 class="text-center">تگ شما در سیستم ثبت نشده.
+      <br>
+      لطفا آیدی زیر را در قسمت تگ ها، در پروفایل خود در سایت وارد کنید.</h4>
+    <br>
+    <h2 style="color: white; background: darkred; padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 10px; border-radius: 10px">{{tag_id}}</h2>
+  <button class="btn btn-warning my-3" (click)="reset()">برگشت</button>
+  </nb-card-body>
+    <nb-card-footer>{{error}}</nb-card-footer>
+</nb-card>
+<nb-card *ngIf="state == 1" style="height: 100vh">
+  <nb-card-header>
+    <div class="row">
+      <div class="col-6">{{user.name}} </div>
+      <div class="col-6">حساب شما {{user.balance}} تومان</div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="row">
+      <div class="col-9">
+        <div class="row">
+          <div class="col-md-3 col-12  p-1" *ngFor="let item of lunches ; let i = index">
+            <nb-card>
+              <nb-card-header style="padding: 0">
+                <img style="width: 100%" src="{{BACKEND + item.image.path}}">
+                <button class="btn btn-success" style="width: 40px; height: 40px; position: absolute; left: 15px; top: 15px" [disabled]="sending"
+                            (click)="add(item.id, item.name)">+
+                    </button>
+              </nb-card-header>
+              <nb-card-body>
+                <div class="row">
+                  <div class="col-12">
+                    <p style="margin: 0">
+                      {{item.price}} تومان
+                    </p>
+                    <p style="font-size: 0.8rem; margin: 0">
+                      {{item.name}}
+                    </p>
+                    <p class="date-text" style="margin: 0">
+                      انقضا: {{dateService.convertToJalali(item.expire, 'dd-MM-yyyy')}}</p>
+                  </div>
+
+<!--                  <div class="col-4 d-flex align-items-center" style="justify-content: left">-->
+<!--                    -->
+<!--                  </div>-->
+
+                </div>
+              </nb-card-body>
+            </nb-card>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-3" style="height: 85vh;
+    position: fixed;
+    left: 0;">
+        <nb-card style="height: 100%">
+
+          <nb-card-header>
+            سبد خرید
+          </nb-card-header>
+          <nb-card-body>
+            <card *ngFor="let item of card | keyvalue">
+              <nb-card-body>
+                <div class="row">
+                  <div class="col-9">
+                    {{item.value.name}}
+                  </div>
+                  <div class="col-3">
+                    {{item.value.count}}x
+                  </div>
+                </div>
+
+              </nb-card-body>
+            </card>
+          </nb-card-body>
+          <nb-card-footer class="d-flex flex-column">
+            <button class="btn btn-success btn-block  mx-1" (click)="addCart()" [disabled]="sending">تایید</button>
+            <button class="btn btn-danger btn-block my-1  mx-1" (click)="reset()" [disabled]="sending">بی خیال</button>
+
+          </nb-card-footer>
+        </nb-card>
+
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+

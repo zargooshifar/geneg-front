@@ -1,0 +1,26 @@
+<nb-card>
+  <nb-card-header>
+    <webcam class="d-flex justify-content-center" (imageCapture)="handleImage($event)"
+            *ngIf="showWebcam"
+            [imageQuality]="1"
+            [trigger]="triggerObservable"
+     (initError)="handleInitError($event)"
+    style="width: 100%"></webcam>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-12">
+      <p class="text-center">لطفا بعد از زدن دکمه شروع صورت خود را به آرامی بچرخانید (بالا، پایین، چپ، راست) تا از تمام زوایای صورت شما عکس گرفته شود. شخص دیگری در تصویر نباشد.</p>
+      </div>
+      <div class="col-12 d-flex justify-content-center">
+    <button class="btn btn-success p-2 mx-2" style="width: 100px" (click)="triggerSnapshot();" [disabled]="capturing">{{start_text}}</button>
+    <button class="btn btn-success p-2 mx-2" style="width: 100px" (click)="upload();" *ngIf="captured" [disabled]="uploading">ادامه</button>
+      </div>
+    </div>
+
+
+  </nb-card-body>
+  <nb-card-footer class="d-flex justify-content-center flex-wrap">
+        <img style="width: 50px; margin: 5px" *ngFor="let snap of snaps" [src]="snap.imageAsDataUrl"/>
+  </nb-card-footer>
+</nb-card>

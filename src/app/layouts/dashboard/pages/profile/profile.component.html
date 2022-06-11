@@ -1,0 +1,54 @@
+<nb-card>
+  <nb-card-body class="example-items-col">
+    <div class="form-group row">
+      <label for="inputfirst" class="label col-sm-3 col-form-label">نام کاربری:</label>
+      <div class="col-sm-9">
+        <input type="text" nbinput="" fullwidth="" id="username"
+               [(ngModel)]="user.username" disabled
+               class="input-full-width size-medium status-basic shape-rectangle nb-transition"></div>
+    </div>
+    <div class="form-group row">
+      <label for="inputfirst" class="label col-sm-3 col-form-label">نام:</label>
+      <div class="col-sm-9">
+        <input type="text" nbinput="" fullwidth="" id="inputfirst" placeholder="نام"
+               [(ngModel)]="user.first_name"
+               class="input-full-width size-medium status-basic shape-rectangle nb-transition"></div>
+    </div>
+
+
+    <div class="form-group row">
+      <label for="inputlast" class="label col-sm-3 col-form-label">نام خانوادگی:</label>
+      <div class="col-sm-9">
+        <input type="text" nbinput="" fullwidth="" id="inputlast" placeholder="نام خانوادگی"
+               [(ngModel)]="user.last_name"
+               class="input-full-width size-medium status-basic shape-rectangle nb-transition"></div>
+    </div>
+
+    <div class="form-group row">
+      <label for="balance" class="label col-sm-3 col-form-label">حساب:</label>
+      <div class="col-sm-9">
+        <p id="balance">{{user.balance | NumbersComma}} تومان</p></div>
+    </div>
+
+
+      <div class="form-group row">
+      <label for="color" class="label col-sm-3 col-form-label">رنگ من:</label>
+      <div class="col-sm-9">
+      <rcp-radial-color-picker #color_picker [(color)]="user.color" ></rcp-radial-color-picker>
+      </div>
+    </div>
+
+<!--    <div class="form-group row">-->
+<!--      <label for="ip" class="label col-sm-3 col-form-label">پردازش تصویر:</label>-->
+<!--      <div class="col-sm-9">-->
+<!--        <a [routerLink]="['/dashboard/capture']" class="btn btn-info" id="ip" >شروع</a></div>-->
+<!--    </div>-->
+
+
+    <button class="btn btn-primary float-left" (click)="save()" [disabled]="loading">
+      ذخیره
+    </button>
+
+
+  </nb-card-body>
+</nb-card>
